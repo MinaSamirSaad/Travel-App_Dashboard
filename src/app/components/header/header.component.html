@@ -1,0 +1,22 @@
+<!-- <div class="row">
+  <app-side-nav style="width: min-content;"></app-side-nav>
+</div> -->
+
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <app-side-nav style="width: min-content;"></app-side-nav>
+    <form class="d-flex" role="search">
+      @if(loading){
+      <button type="button" class="btn btn-outline-primary">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden w-100">Loading...</span>
+        </div>
+      </button>
+      }
+      @else {
+      <button type="button" class="btn btn-outline-primary" (click)="logout()">Log out</button>
+
+      }
+    </form>
+  </div>
+</nav>

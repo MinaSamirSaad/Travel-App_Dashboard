@@ -1,0 +1,11 @@
+@if(lengths){
+  <div class="row mt-4 justify-content-between">
+    <app-pie class="col-md-5" [lengths]="lengths"></app-pie>
+    <app-chart-combo class="col-md-6"></app-chart-combo>
+    </div>
+}
+@else {
+  <div style="height: 90vh;" class="d-flex justify-content-center align-items-center">
+  <app-spinner></app-spinner>
+</div>
+}

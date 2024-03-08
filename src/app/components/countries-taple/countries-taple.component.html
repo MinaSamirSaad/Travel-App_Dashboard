@@ -1,0 +1,43 @@
+@if(countriesData){
+<div class="card p-shadow-2 ">
+  <p-table [value]="countriesData" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '60rem', }"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" (onPage)="pageChange($event)"
+    [rowsPerPageOptions]="[10, 25, 50]">
+    <ng-template pTemplate="caption">
+      <div class="d-flex justify-content-center align-items-center m-4">
+        <h4 class="m-0">Countries</h4>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 20%;padding: 10px;">Name</th>
+        <th >Image</th>
+        <th>Hotels</th>
+        <th>Trips</th>
+        <th>Controllers</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-countriesData>
+      <tr>
+        <td style="width:10%; padding: 10px;">{{countriesData.countryName}}</td>
+        <td style="padding: 10px;"><img [src]="countriesData.countryImg" [alt]="countriesData.countryName" width="100" height="100" class="p-shadow-4" /></td>
+        <td style="padding: 10px;">{{countriesData.hotelsNumber}}</td>
+        <td style="padding: 10px;">{{countriesData.tripsNumber}}</td>
+        <td>
+        <app-delete-button [id]="countriesData._id" [type]="'country'" (confirm)="reloadData()"></app-delete-button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+    </ng-template>
+  </p-table>
+</div>
+}
+@else {
+  <div style="height: 90vh;" class="d-flex justify-content-center align-items-center">
+  <app-spinner></app-spinner>
+</div>
+}
+

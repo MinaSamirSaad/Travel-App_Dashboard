@@ -1,0 +1,50 @@
+@if(usersData){
+  <div class="card p-shadow-2">
+    <p-table [value]="usersData" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" (onPage)="pageChange($event)"
+      [rowsPerPageOptions]="[10, 25, 50]">
+      <ng-template pTemplate="caption">
+        <div class="d-flex justify-content-center align-items-center m-4">
+          <h4 class="m-0">Users</h4>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width:15%; padding: 10px;">Name</th>
+          <th style="width:25%">Email</th>
+          <th style="width:20%">Image</th>
+          <th style="width:15%">Trips Booked</th>
+          <th>Controllers</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-usersData>
+        @if(userId !== usersData._id){
+        <tr>
+          <td style="width:10%; padding: 10px;">{{usersData.userName}}</td>
+          <td>{{usersData.email }}</td>
+          <td style="padding: 10px;"><img [src]="usersData.image" [alt]="usersData.name" width="100" height="100" class="p-shadow-4" /></td>
+          <td>{{usersData.bookedTrips.length }}</td>
+          <td>
+            @if(usersData.isAdmin){
+              <app-set-admin-button class="me-2" [id]="usersData._id" [style]="'btn-outline-warning'" (confirm)="reloadData()" [text]="'unset Admin'"></app-set-admin-button>
+            }
+            @else{
+              <app-set-admin-button class="me-2" [style]="'btn-outline-primary'" (confirm)="reloadData()" [id]="usersData._id" [text]="'Set Admin'"></app-set-admin-button>
+            }
+          <app-delete-button [id]="usersData._id" [type]="'user'" (confirm)="reloadData()"></app-delete-button>
+          </td>
+        </tr>
+      }
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+      </ng-template>
+    </p-table>
+  </div>
+  }
+  @else {
+    <div style="height: 90vh;" class="d-flex justify-content-center align-items-center">
+    <app-spinner></app-spinner>
+  </div>
+  }
